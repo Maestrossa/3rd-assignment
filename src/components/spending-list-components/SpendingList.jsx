@@ -1,6 +1,46 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useQuery } from '@tanstack/react-query';
+import { getExpenses } from '../../library/api/expense';
 import { useSelector } from 'react-redux';
+
+const SpendingList = () => {
+  const { data: expenses = [], isLoading, error } = useQuery({ queryKey: ['expenses'], queryFn: getExpenses });
+  const activeIndex = useSelector((state) => state.spendingHistory.selectedMonth);
+
+  const getFilteredStatement = () => {
+    return expenses.filter((item) => {
+      const dateObject = new Date(item.date);
+      return dateObject.getMonth() + 1 === activeIndex;
+    });
+  };
+
+  const filteredList = getFilteredStatement();
+
+  if (isLoading) {
+    return <div>로딩중 입니다.</div>;
+  }
+
+  return (
+    <section>
+      <div>
+        {filteredList.map((item) => (
+          <StLink to={`/details/${item.id}`} key={item.id}>
+            <StDiv>
+              <span>{item.date}</span>
+              <span>
+                {item.item} - {item.description}
+              </span>
+            </StDiv>
+            <span>{item.amount.toLocaleString()} 원</span>
+          </StLink>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+export default SpendingList;
 
 const StLink = styled(Link)`
   width: 800px;
@@ -37,45 +77,3 @@ const StDiv = styled.div`
     margin: 5px;
   }
 `;
-
-const SpendingList = () => {
-  // 1. 내가 선택한 '월'에 맞는 데이터를 필터
-  // 2. 준비물 : 내가 선택한 월, 원본 데이터
-
-  // 3. 원본 데이터 가져오기
-  const statement = useSelector((state) => state.spendingHistory.statement);
-  // 4. 내가 선택한 월 가져오기
-  const activeIndex = useSelector((state) => state.spendingHistory.selectedMonth);
-
-  // 원본 데이터에서 내가 선택한 '월'에 맞는 데이터들만 필터링
-  const getFilteredStatement = () => {
-    return statement.filter((item) => {
-      const dateObject = new Date(item.date); //Date 공부해보기
-      // console.log('dateObject =>', dateObject);
-      // console.log('dateObject.getMonth() =>', dateObject.getMonth());
-      return dateObject.getMonth() + 1 === activeIndex;
-    });
-  };
-
-  const filterdList = getFilteredStatement();
-
-  return (
-    <section>
-      <div>
-        {filterdList.map((item) => (
-          <StLink to={`/details/${item.id}`} key={item.id}>
-            <StDiv>
-              <span>{item.date}</span>
-              <span>
-                {item.category} - {item.item}
-              </span>
-            </StDiv>
-            <span>{item.amount.toLocaleString()} 원</span>
-          </StLink>
-        ))}
-      </div>
-    </section>
-  );
-};
-
-export default SpendingList;
