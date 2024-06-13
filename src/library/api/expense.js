@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const getExpenses = async () => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/expenses`);
+    const response = await axios.get(`${VITE_SERVER_URL}/expenses`);
     return response.data;
   } catch (err) {
     console.log('expenseS ->', response);
@@ -12,7 +12,7 @@ export const getExpenses = async () => {
 
 export const getExpense = async ({ queryKey }) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/expenses/${queryKey[1]}`);
+    const response = await axios.get(`${VITE_SERVER_URL}/expenses/${queryKey[1]}`);
     return response.data;
   } catch (err) {
     consol.log('espense->', response);
@@ -23,7 +23,7 @@ export const getExpense = async ({ queryKey }) => {
 
 export const postExpense = async (newExpense) => {
   try {
-    const { data } = await axios.post(`${process.env.REACT_APP_SERVER_URL}/expenses`, newExpense);
+    const { data } = await axios.post(`${VITE_SERVER_URL}/expenses`, newExpense);
     return data;
   } catch (err) {
     console.log(err);
@@ -34,7 +34,7 @@ export const postExpense = async (newExpense) => {
 export const putExpense = async (updatedExpense) => {
   const { id, ...rest } = updatedExpense;
   try {
-    const { data } = await axios.put(`${process.env.REACT_APP_SERVER_URL}/expenses/${id}`, rest);
+    const { data } = await axios.put(`${VITE_SERVER_URL}/expenses/${id}`, rest);
     return data;
   } catch (err) {
     console.log(err);
@@ -44,7 +44,7 @@ export const putExpense = async (updatedExpense) => {
 
 export const deleteExpense = async (id) => {
   try {
-    const { data } = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/expenses/${id}`);
+    const { data } = await axios.delete(`${VITE_SERVER_URL}/expenses/${id}`);
     return data;
   } catch (err) {
     console.log(err);
