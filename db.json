@@ -1,3 +1,12 @@
 {
-  "expenses": []
+  "expenses": [
+    {
+      "id": "3078b1e4-821a-4e66-a98e-ed9789644dad",
+      "date": "2024-06-13",
+      "item": "123",
+      "amount": 1231,
+      "description": "123",
+      "createdBy": "ahn0926"
+    }
+  ]
 }
