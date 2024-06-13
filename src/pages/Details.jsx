@@ -26,7 +26,6 @@ const Details = () => {
     mutationFn: deleteExpense,
     onSuccess: () => {
       goToHome();
-      queryClient.invalidateQueries(['expense']);
     },
   });
 
@@ -64,7 +63,7 @@ const Details = () => {
   const handleDelete = () => {
     if (window.confirm('정말 해당 지출내역을 삭제하시겠습니까?')) {
       mutationDelete.mutate(id);
-      alert('삭제가 완료되었습니다.');
+      return alert('삭제가 완료되었습니다.');
     } else {
       return alert('삭제가 취소되었습니다.');
     }
