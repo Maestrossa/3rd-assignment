@@ -10,7 +10,6 @@ const StMain = styled.main`
   gap: 20px;
   margin: 0px auto;
 `;
-
 const Home = () => {
   return (
     <StMain>
