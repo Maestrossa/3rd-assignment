@@ -1,13 +1,14 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deleteExpense, getExpense, putExpense } from '../library/api/expense';
 
 const Details = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const { data: selectedExpense = [], isPending, error } = useQuery({ queryKey: ['expense', id], queryFn: getExpense });
+  const { data: selectedExpense = [], isLoading, error } = useQuery({ queryKey: ['expense', id], queryFn: getExpense });
 
   const goToHome = () => {
     navigate('/');
@@ -17,7 +18,7 @@ const Details = () => {
     mutationFn: putExpense,
     onSuccess: () => {
       goToHome();
-      queryClient.invalidateQueries({ queryKey: ['expense', id] });
+      queryClient.invalidateQueries(['expense']);
     },
   });
 
@@ -25,11 +26,10 @@ const Details = () => {
     mutationFn: deleteExpense,
     onSuccess: () => {
       goToHome();
-      queryClient.invalidateQueries({ queryKey: ['expenses', id] });
+      queryClient.invalidateQueries(['expense']);
     },
   });
 
-  console.log(selectedExpense);
   const handleUpdate = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -70,7 +70,7 @@ const Details = () => {
     }
   };
 
-  if (isPending) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
