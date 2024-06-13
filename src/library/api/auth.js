@@ -18,7 +18,7 @@ export const register = async ({ id, password, nickname }) => {
 
 export const login = async ({ credentials }) => {
   try {
-    const response = await axios.post(AUTH_API_HOST + '/login?expiresIn=10m', credentials);
+    const response = await axios.post(AUTH_API_HOST + '/login?expiresIn=30m', credentials);
     localStorage.setItem('accessToken', response.data.accessToken);
     const data = response.data;
     return data;
