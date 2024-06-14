@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { setSelectedMonth } from '../../redux/slices/statementSlice';
+import { setSelectedMonth } from '../../redux/slices/monthSlice';
 
 const FilterByMonth = () => {
   const dispatch = useDispatch();
 
-  const activeIndex = useSelector((state) => state.spendingHistory.selectedMonth);
+  const activeIndex = useSelector((state) => state.month.selectedMonth);
   const handleClick = (month) => {
     dispatch(setSelectedMonth(month));
     localStorage.setItem('selectedMonth', month);

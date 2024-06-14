@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import statementSlice from '../slices/statementSlice';
+import monthSlice from '../slices/monthSlice';
 
 const store = configureStore({
   reducer: {
-    spendingHistory: statementSlice,
+    month: monthSlice,
   },
 });
 export default store;

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 const SpendingList = () => {
   const { data: expenses = [], isLoading, error } = useQuery({ queryKey: ['expenses'], queryFn: getExpenses });
-  const activeIndex = useSelector((state) => state.spendingHistory.selectedMonth);
+  const activeIndex = useSelector((state) => state.month.selectedMonth);
 
   const getFilteredStatement = () => {
     return expenses.filter((item) => {

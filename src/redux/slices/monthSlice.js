@@ -4,8 +4,8 @@ const initialState = {
   selectedMonth: 0,
 };
 
-const statementSlice = createSlice({
-  name: 'spendingHistory',
+const monthSlice = createSlice({
+  name: 'month',
   initialState,
   reducers: {
     setSelectedMonth: (state, action) => {
@@ -14,5 +14,5 @@ const statementSlice = createSlice({
   },
 });
 
-export const { setSelectedMonth } = statementSlice.actions;
-export default statementSlice.reducer;
+export const { setSelectedMonth } = monthSlice.actions;
+export default monthSlice.reducer;
